@@ -1,42 +1,21 @@
-const Groq = require("groq-sdk");
+const { GoogleGenAI } = require("@google/genai");
 
-const groq = new Groq({
+const ai = new GoogleGenAI({
   apiKey: process.env.GEMINI_API_KEY,
 });
 
 async function generateContent(prompt) {
   try {
-    const completion = await groq.chat.completions.create({
-      messages: [
-        {
-          role: "system",
-          content: `
-You are an expert code reviewer with 7+ years of software development experience.
-
-Responsibilities:
-- Review code quality.
-- Find bugs and logical errors.
-- Suggest performance improvements.
-- Recommend best coding practices.
-- Explain every issue clearly.
-- Provide corrected code whenever possible.
-- Focus on readability, maintainability, and security.
-          `,
-        },
-        {
-          role: "user",
-          content: prompt,
-        },
-      ],
-
-      model: "llama-3.3-70b-versatile",
-      temperature: 0.3,
+    const response = await ai.models.generateContent({
+      model: "gemini-3.6-flash", // ✅ updated — gemini-2.0-flash is deprecated
+      contents: prompt,
     });
 
-    return completion.choices[0].message.content;
+    return response.text;
   } catch (error) {
-    console.error(error);
-    return "Error while generating review.";
+    console.error("Gemini API Error:", error);
+
+    throw new Error("Failed to generate AI review");
   }
 }
 
