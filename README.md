@@ -1,6 +1,6 @@
 # 🤖 AI-Powered Code Reviewer
 
-An AI-powered code review tool built on the **MERN-adjacent stack** (React + Express, no DB required) that analyzes your code and gives instant, expert-level feedback — bugs, performance issues, security flaws, and best-practice suggestions — powered by **Groq's LLaMA 3.3 70B** model.
+An AI-powered code review tool built on the **MERN-adjacent stack** (React + Express, no DB required) that analyzes your code and gives instant, expert-level feedback — bugs, performance issues, security flaws, and best-practice suggestions — powered by **Google's Gemini API**.
 
 🔗 **Live Demo:** [ai-powered-code-reviewer-86n9.vercel.app](https://ai-powered-code-reviewer-86n9.vercel.app)
 
@@ -28,7 +28,7 @@ An AI-powered code review tool built on the **MERN-adjacent stack** (React + Exp
 
 **Backend**
 - Node.js + Express 5
-- Groq SDK (`llama-3.3-70b-versatile` model)
+- Google Generative AI SDK (`@google/generative-ai`) — `gemini-1.5-flash` model
 - CORS (configured with explicit allowed origins for secure cross-origin requests)
 - dotenv (environment variable management)
 
@@ -38,15 +38,11 @@ An AI-powered code review tool built on the **MERN-adjacent stack** (React + Exp
 
 ---
 
-```
-
----
-
 ## ⚙️ Getting Started
 
 ### Prerequisites
 - Node.js (v18+ recommended)
-- A free [Groq API key](https://console.groq.com)
+- A free [Gemini API key](https://aistudio.google.com/app/apikey) (from Google AI Studio)
 
 ### 1. Clone the repository
 ```bash
@@ -62,7 +58,7 @@ npm install
 
 Create a `.env` file inside `Backend/`:
 ```env
-GROQ_API_KEY=your_groq_api_key_here
+GEMINI_API_KEY=your_gemini_api_key_here
 ```
 
 Run the backend:
@@ -111,7 +107,7 @@ Sends code to the AI for review.
 
 ## 🚀 Deployment Notes
 
-- **Backend (Render):** Root directory must be set to `Backend`, start command `node server.js`, and `GROQ_API_KEY` added under Render's Environment Variables tab.
+- **Backend (Render):** Root directory must be set to `Backend`, start command `node server.js`, and `GEMINI_API_KEY` added under Render's Environment Variables tab.
 - **Frontend (Vercel):** Root directory set to `frontend`, with `VITE_API_URL` pointing to the deployed Render backend URL.
 - **CORS:** Backend explicitly whitelists both `http://localhost:5173` (dev) and the deployed Vercel URL — update `allowedOrigins` in `Backend/src/app.js` if you deploy your own fork.
 
@@ -148,6 +144,5 @@ This project is licensed under the **ISC License**.
 ## 👩‍💻 Author
 
 **Priti Vishwakarma** ([@pritivish07025](https://github.com/pritivish07025))
-
 
 ⭐ If you found this project useful, consider giving it a star!
